@@ -3,6 +3,6 @@ This repository contains code to provide a data-driven closure for the subgrid s
 
 ## Stochastic Burgers Equation
 
-This code is built off of Jeremy Gibbs' pyBurgers repository (https://github.com/jeremygibbs/pyBurgers). More information can be found there.
+This code is built off of [Jeremy Gibbs' pyBurgers repository](https://github.com/jeremygibbs/pyBurgers). A more detailed description of the numerical method for Burgers equation can be found there.
 
 ## Kramers-Moyal Expansion Method
