@@ -3,6 +3,28 @@ This repository contains code to provide a data-driven closure for the subgrid s
 
 ## Stochastic Burgers Equation
 
-This code is built off of [Jeremy Gibbs' pyBurgers repository](https://github.com/jeremygibbs/pyBurgers). A more detailed description of the numerical method for Burgers equation can be found there.
+This code is built off of [Jeremy Gibbs' pyBurgers repository](https://github.com/jeremygibbs/pyBurgers). A more detailed description of the numerical method for solving the stochastic Burgers equation for both DNS and LES can be found there.
 
 ## Kramers-Moyal Expansion Method
+
+The Kramers-Moyal (KM) expansion method is a statistical mechanics-based method for describing the evolution of a pdf in time.
+
+The generic equation for some state variable, $x$, is given by
+
+$\frac{dt}{dx}=D_1(x,t)+\sqrt{D_2(x,t)}dW$
+
+This repository assumes that the 
+
+# Licensing
+
+# Contribute
+
+Suggestions to improve this repository are always welcome.
+
+Errors can be reported to
+
+# Citation
+
+If using this repository, please cite
+
+
