@@ -15,7 +15,21 @@ $\frac{dt}{dx}=D_1(x,t)+\sqrt{D_2(x,t)}dW$
 
 This repository assumes that the 
 
+# Using the Code
+
+## Code dependencies
+
+This code is written in Python 3 and is compatible with Windows, Linux, and Mac operating systems.
+
+Required libraries include . To install,
+
+```
+pip install scikit.sklearn
+```
+
 # Licensing
+
+This code is licensed under GNU GPL-3.0.
 
 # Contribute
 
