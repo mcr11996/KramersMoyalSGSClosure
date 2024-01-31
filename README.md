@@ -6,8 +6,9 @@
 [![LinkedIn][linkedin-shield]][linkedin-url]
 
 
-# Kramers Moyal Burgulence Closure
-This repository contains code to provide a data-driven closure for the subgrid scale term in Burgers turbulence (Burgulence) using the Kramers-Moyal expansion method. All relevant code can be found in the Code folder.
+# Kramers Moyal Subgrid-scale Closure
+
+This repository contains code to provide a data-driven closure for the subgrid scale term in Large Eddy Simulation (LES) of the momentum equation using the Kramers-Moyal expansion method. The current code is implemented in the 1D Burgers equation (Burger's turbulence). All relevant code can be found in the Code folder.
 
 <!-- TABLE OF CONTENTS -->
 # Table of Contents
