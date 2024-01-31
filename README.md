@@ -132,16 +132,18 @@ Ross, Molly, and Hitesh Bindra. "Development of a subgrid-scale model for Burger
 }
 ```
 
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/mcr11996/KramersMoyalBurgulenceClosure/graphs/contributors
+[contributors-shield]: https://img.shields.io/github/contributors/mcr11996/KramersMoyalBurgulenceClosure?style=for-the-badge
+[contributors-url]: https://github.com/mcr11996/KramersMoyalSGSClosure/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/mcr11996/KramersMoyalBurgulenceClosure?style=for-the-badge
 [forks-url]: https://github.com/mcr11996/KramersMoyalBurgulenceClosure/network/members
-[stars-shield]: https://img.shields.io/github/last-commit/mcr11996/KramersMoyalBurgulenceClosure?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/last-commit/mcr11996/KramersMoyalSGSClosure?style=for-the-badge
 [stars-url]: https://github.com/mcr11996/KramersMoyalBurgulenceClosure
-[issues-shield]: https://img.shields.io/github/issues/mcr11996/KramersMoyalBurgulenceClosure?style=for-the-badge&color=red
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
+[issues-shield]: https://img.shields.io/github/issues/mcr11996/KramersMoyalSGSClosure?style=for-the-badge&color=red
+[issues-url]: https://github.com/mcr11996/KramersMoyalSGSClosure/issues
 [license-shield]: https://img.shields.io/badge/GPL-3?style=for-the-badge&label=LICENSE&color=green
-[license-url]: https://github.com/mcr11996/KramersMoyalBurgulence/blob/master/LICENSE.txt
+[license-url]: https://github.com/mcr11996/KramersMoyalSGS/blob/master/LICENSE.txt
+[citation-shield]: https://img.shields.io/badge/PUBLICATION?style=for-thebadge
+[citation-url]: https://pubs.aip.org/aip/pof/article/35/12/125144/2930728
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/molly-ross-48300186/
 [product-screenshot]: images/screenshot.png
