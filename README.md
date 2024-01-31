@@ -6,7 +6,7 @@
 [![Citation][citation-shield]][citation-url]
 
 
-# Kramers Moyal Subgrid-scale Closure
+# Kramers-Moyal Subgrid-scale Closure
 
 This repository contains code to provide a data-driven closure for the subgrid scale term in Large Eddy Simulation (LES) of the momentum equation using the Kramers-Moyal expansion method. The current code is implemented in the 1D Burgers equation (Burger's turbulence). All relevant code can be found in the Code folder.
 
@@ -15,25 +15,29 @@ This repository contains code to provide a data-driven closure for the subgrid s
 
 <ol>
     <li>
-      <a href="#stochastic-burgers-equation">Stochastic Burgers Equation</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
+      <a href="#about-the-project">About the Project</a>
+        <ul>
+          <li><a href="#stochastic-burgers-equation">Stochastic Burgers Equation</a></li>
+          <li><a href="#kramers-moyal-expansion-method">Kramers-Moyal Expansion Method</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
+        <a href="#using-the-code">Using the Code</a>
+            <ul>
+                <li><a href="#code-dependencies">Code dependencies</a></li>
+                <li><a href="#example-usage">Example usage</a></li>
+                <li><a href="#roadmap">Roadmap</a></li>
+            </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contribute">Contribute</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
     <li><a href="#citation">Citation</a></li>
 </ol>
+
+<!--ABOUT THE PROJECT-->
+# About the Project
+
+
 
 <!--STOCHASTIC BURGERS EQUATION-->
 ## Stochastic Burgers Equation
@@ -46,6 +50,9 @@ $\frac{\partial \bar{u}}{\partial t}+\bar{u}\frac{\partial \bar{u}}{\partial x} 
 
 The objective of this code is to generate a model for $\tau$ in the subgrid-scale term.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!--KRAMERS-MOYAL EXPANSION METHOD-->
 ## Kramers-Moyal Expansion Method
 
 The Kramers-Moyal (KM) expansion method is a statistical mechanics-based method for describing the evolution of a pdf in time.
@@ -67,11 +74,16 @@ $\tau_{n+1} = \tau_n + D_1(\tau_n)dt
 
 See the [the cited paper](https://www.researchgate.net/profile/Hitesh-Bindra/publication/376766325_Development_of_a_subgrid-scale_model_for_Burgers_turbulence_using_statistical_mechanics-based_methods/links/65999ab53c472d2e8eb968a9/Development-of-a-subgrid-scale-model-for-Burgers-turbulence-using-statistical-mechanics-based-methods.pdf) for a more thorough derivation of the math involved.
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!--USING THE CODE-->
 # Using the Code
 
 This is a data-driven closure for Burgers turbulence. To obtain the initial data, run pyBurgersDNS.py. This will produce a netCDF4 (.nc) file with the results.
 
 Next, run BurgersLESKMfromDNS.py. This will produce an LES 
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!--DEPENDENCIES-->
 ## Code dependencies
@@ -90,16 +102,31 @@ and
 pip install netCDF4
 ```
 
+<!--EXAMPLE USAGE-->
+## Example Usage
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ROADMAP -->
+## Roadmap
+
+The development of this code is still a work in progress. 
+
+- [x] Implement KM surrogate for $\tau$ time series.
+- [x] Implement KM closure for solving LES in 1D momentum equation (Burgers equation)
+- [ ] Phase out NetCDF4 requirement
+- [ ] Implement into other  
+
+See the [open issues](https://github.com/mcr11996/KramersMoyalSGSClosure/issues) for a full list of proposed features (and known issues).
 
 <!-- LICENSE -->
-## License
+# License
 
 Distributed under the GNU GPL-3.0 License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTRIBUTE -->
-## Contribute
+# Contribute
 
 Contributions to this repository are always welcome. Any contributions you make are **greatly appreciated**.
 
@@ -131,6 +158,7 @@ Ross, Molly, and Hitesh Bindra. "Development of a subgrid-scale model for Burger
   publisher={AIP Publishing}
 }
 ```
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 [contributors-shield]: https://img.shields.io/github/contributors/mcr11996/KramersMoyalBurgulenceClosure?style=for-the-badge
 [contributors-url]: https://github.com/mcr11996/KramersMoyalSGSClosure/graphs/contributors
