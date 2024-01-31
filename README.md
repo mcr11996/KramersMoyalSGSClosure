@@ -3,7 +3,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![GNU GPL-3.0 License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+[![Citation][citation-shield]][citation-url]
 
 
 # Kramers Moyal Subgrid-scale Closure
@@ -142,7 +142,7 @@ Ross, Molly, and Hitesh Bindra. "Development of a subgrid-scale model for Burger
 [issues-url]: https://github.com/mcr11996/KramersMoyalSGSClosure/issues
 [license-shield]: https://img.shields.io/badge/GPL-3?style=for-the-badge&label=LICENSE&color=green
 [license-url]: https://github.com/mcr11996/KramersMoyalSGS/blob/master/LICENSE.txt
-[citation-shield]: https://img.shields.io/badge/PUBLICATION?style=for-thebadge
+[citation-shield]: https://img.shields.io/badge/PUBLICATION-3?style=for-the-badge&logo=googlescholar&labelColor=grey&color=grey
 [citation-url]: https://pubs.aip.org/aip/pof/article/35/12/125144/2930728
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/molly-ross-48300186/
