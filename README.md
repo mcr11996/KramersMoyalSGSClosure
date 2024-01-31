@@ -1,6 +1,40 @@
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![GNU GPL-3.0 License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+
 # Kramers Moyal Burgulence Closure
 This repository contains code to provide a data-driven closure for the subgrid scale term in Burgers turbulence (Burgulence) using the Kramers-Moyal expansion method. All relevant code can be found in the Code folder.
 
+<!-- TABLE OF CONTENTS -->
+# Table of Contents
+
+<ol>
+    <li>
+      <a href="#stochastic-burgers-equation">Stochastic Burgers Equation</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contribute">Contribute</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#citation">Citation</a></li>
+</ol>
+
+<!--STOCHASTIC BURGERS EQUATION-->
 ## Stochastic Burgers Equation
 
 This code is built off of [Jeremy Gibbs' pyBurgers repository](https://github.com/jeremygibbs/pyBurgers). A more detailed description of the numerical method for solving the stochastic Burgers equation for both DNS and LES can be found there.
@@ -38,6 +72,7 @@ This is a data-driven closure for Burgers turbulence. To obtain the initial data
 
 Next, run BurgersLESKMfromDNS.py. This will produce an LES 
 
+<!--DEPENDENCIES-->
 ## Code dependencies
 
 This code is written in Python 3 and is compatible with Windows, Linux, and Mac operating systems.
@@ -54,18 +89,76 @@ and
 pip install netCDF4
 ```
 
-# Licensing
 
-This code is licensed under GNU GPL-3.0.
+<!-- LICENSE -->
+## License
 
-# Contribute
+Distributed under the GNU GPL-3.0 License. See `LICENSE.txt` for more information.
 
-Suggestions to improve this repository are always welcome. Please report any errors through Github.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- CONTRIBUTE -->
+## Contribute
+
+Contributions to this repository are always welcome. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion that would make this project better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!--CITATION-->
 # Citation
 
 If using this repository, please cite
 
 Ross, Molly, and Hitesh Bindra. "Development of a subgrid-scale model for Burgers turbulence using statistical mechanics-based methods." Physics of Fluids 35.12 (2023).
+
+```
+@article{ross2023development,
+  title={Development of a subgrid-scale model for Burgers turbulence using statistical mechanics-based methods},
+  author={Ross, Molly and Bindra, Hitesh},
+  journal={Physics of Fluids},
+  volume={35},
+  number={12},
+  year={2023},
+  publisher={AIP Publishing}
+}
+```
+
+[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
+[contributors-url]: https://github.com/mcr11996/KramersMoyalBurgulenceClosure/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/mcr11996/KramersMoyalBurgulenceClosure?style=for-the-badge
+[forks-url]: https://github.com/mcr11996/KramersMoyalBurgulenceClosure/network/members
+[stars-shield]: https://img.shields.io/github/last-commit/mcr11996/KramersMoyalBurgulenceClosure?style=for-the-badge
+[stars-url]: https://github.com/mcr11996/KramersMoyalBurgulenceClosure
+[issues-shield]: https://img.shields.io/github/issues/mcr11996/KramersMoyalBurgulenceClosure?style=for-the-badge&color=red
+[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
+[license-shield]: https://img.shields.io/badge/GPL-3?style=for-the-badge&label=LICENSE&color=green
+[license-url]: https://github.com/mcr11996/KramersMoyalBurgulence/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/molly-ross-48300186/
+[product-screenshot]: images/screenshot.png
+[Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
+[Next-url]: https://nextjs.org/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[Vue.js]: https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vuedotjs&logoColor=4FC08D
+[Vue-url]: https://vuejs.org/
+[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
+[Angular-url]: https://angular.io/
+[Svelte.dev]: https://img.shields.io/badge/Svelte-4A4A55?style=for-the-badge&logo=svelte&logoColor=FF3E00
+[Svelte-url]: https://svelte.dev/
+[Laravel.com]: https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white
+[Laravel-url]: https://laravel.com
+[Bootstrap.com]: https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white
+[Bootstrap-url]: https://getbootstrap.com
+[JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
+[JQuery-url]: https://jquery.com 
 
 
