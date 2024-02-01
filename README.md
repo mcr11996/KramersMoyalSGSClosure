@@ -1,5 +1,4 @@
 [![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![GNU GPL-3.0 License][license-shield]][license-url]
@@ -85,24 +84,26 @@ $\tau_{n+1} = \tau_n + D_1(\tau_n)dt
 
 See the [the cited paper](https://www.researchgate.net/profile/Hitesh-Bindra/publication/376766325_Development_of_a_subgrid-scale_model_for_Burgers_turbulence_using_statistical_mechanics-based_methods/links/65999ab53c472d2e8eb968a9/Development-of-a-subgrid-scale-model-for-Burgers-turbulence-using-statistical-mechanics-based-methods.pdf) for a more thorough derivation of the math involved.
 
+<div align="center">
+    <img src="Figures/KMDiagramSGS2.png" width="800">
+</div>
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!--USING THE CODE-->
 # Using the Code
 
-This is a data-driven closure for Burgers turbulence. To obtain the initial data, run pyBurgersDNS.py. This will produce a netCDF4 (.nc) file with the results.
+This code is written in Python 3 and is compatible with Windows, Linux, and Mac operating systems. It has been tested by running in Anaconda powershell prompt in Anaconda 3.0 and Spyder 4.0 on Windows, Spyder 3.0 on Mac, and Linux command line.
 
-Next, run BurgersLESKMfromDNS.py. This will produce an LES 
+Currently the code is not available as a package and must be run from the downloaded Python files.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!--DEPENDENCIES-->
 ## Code dependencies
 
-This code is written in Python 3 and is compatible with Windows, Linux, and Mac operating systems.
-
-Required libraries include numpy, scipy, scikit.sklearn, and netCDF4. To install,
+Required libraries include numpy, scipy, scikit.sklearn, and netCDF4. To install, run the following in the terminal
 
 ```
 pip install scikit.sklearn
@@ -119,14 +120,27 @@ pip install netCDF4
 <!--EXAMPLE USAGE-->
 ## Example Usage
 
+Run the DNS script to obtain the training data.
+
+```
+python burgersDNS.py
+```
+
+Run the LES script to train from the data provided in the DNS data and then implement that as a closure for LES.
+
+```
+python burgers_LESfromDNS.py
+```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
 ## Roadmap
 
-The development of this code is still a work in progress. 
+The development of this code is still a work in progress. This code has 
 
 - [x] Implement KM surrogate for $\tau$ time series
+- [x] Estimate Markov scale from time series statistics 
 - [x] Implement KM closure for solving LES in 1D momentum equation (Burgers equation)
 - [ ] Publish distribution package
 - [ ] Phase out NetCDF4 requirement
