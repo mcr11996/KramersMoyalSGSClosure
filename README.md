@@ -8,7 +8,7 @@
 
 # Kramers-Moyal Subgrid-scale Closure
 
-This repository contains code to provide a data-driven closure for the subgrid scale term in Large Eddy Simulation (LES) of the momentum equation using the Kramers-Moyal expansion method. The current code is implemented in the 1D Burgers equation (Burger's turbulence). All relevant code can be found in the Code folder.
+This repository contains code to provide a data-driven closure for the subgrid scale term in Large Eddy Simulation (LES) of the momentum equation using the Kramers-Moyal expansion method. The current code is implemented as a subgrid scale closure in the 1D Burgers equation (Burger's turbulence). All relevant code can be found in the Code folder.
 
 <!-- TABLE OF CONTENTS -->
 # Table of Contents
@@ -36,13 +36,24 @@ This repository contains code to provide a data-driven closure for the subgrid s
 
 <!--ABOUT THE PROJECT-->
 # About the Project
+This repository is intended to provide a data-driven subgrid-scale closure method using the principles of statistical mechanics. The current SGS closure is implemented into 
 
-
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!--STOCHASTIC BURGERS EQUATION-->
 ## Stochastic Burgers Equation
 
 This code is built off of [Jeremy Gibbs' pyBurgers repository](https://github.com/jeremygibbs/pyBurgers). A more detailed description of the numerical method for solving the stochastic Burgers equation for both DNS and LES can be found there.
+
+The general form of the 1D momentum equation (Burgers equation) can be written as 
+
+$\frac{\partial u}{\partial t}+u\frac{\partial u}{\partial x} = \nu \frac{\partial^2 u}{\partial x^2}+f(x,t)$
+
+In the case of the stochastic Burgers equation, the forcing function is defined as a noise term that is white in time and colored in space by
+
+$\langle\widehat{f}(k,t)\widehat{f}(k',t')\rangle = 2C_0|k|^{\beta}\delta (k+k')\delta (t-t')$
+
+The 
 
 The equation for solving Burgers equation using LES is defined by
 
@@ -74,6 +85,7 @@ $\tau_{n+1} = \tau_n + D_1(\tau_n)dt
 
 See the [the cited paper](https://www.researchgate.net/profile/Hitesh-Bindra/publication/376766325_Development_of_a_subgrid-scale_model_for_Burgers_turbulence_using_statistical_mechanics-based_methods/links/65999ab53c472d2e8eb968a9/Development-of-a-subgrid-scale-model-for-Burgers-turbulence-using-statistical-mechanics-based-methods.pdf) for a more thorough derivation of the math involved.
 
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!--USING THE CODE-->
@@ -102,8 +114,11 @@ and
 pip install netCDF4
 ```
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 <!--EXAMPLE USAGE-->
 ## Example Usage
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
@@ -111,12 +126,15 @@ pip install netCDF4
 
 The development of this code is still a work in progress. 
 
-- [x] Implement KM surrogate for $\tau$ time series.
+- [x] Implement KM surrogate for $\tau$ time series
 - [x] Implement KM closure for solving LES in 1D momentum equation (Burgers equation)
+- [ ] Publish distribution package
 - [ ] Phase out NetCDF4 requirement
-- [ ] Implement into other  
+- [ ] Implement into 2D and 3D closures
 
 See the [open issues](https://github.com/mcr11996/KramersMoyalSGSClosure/issues) for a full list of proposed features (and known issues).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
 # License
@@ -174,6 +192,7 @@ Ross, Molly, and Hitesh Bindra. "Development of a subgrid-scale model for Burger
 [citation-url]: https://pubs.aip.org/aip/pof/article/35/12/125144/2930728
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/molly-ross-48300186/
+[top-shield]: https://img.shields.io/badge/back%20to%20top-3?style=for-the-badge&color=blue
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
