@@ -24,8 +24,9 @@ This repository contains code to provide a data-driven closure for the subgrid s
     <li>
         <a href="#using-the-code">Using the Code</a>
             <ul>
-                <li><a href="#code-dependencies">Code dependencies</a></li>
-                <li><a href="#example-usage">Example usage</a></li>
+                <li><a href="#code-dependencies">Code Dependencies</a></li>
+                <li><a href="#files-included">Files Included</a></li>
+                <li><a href="#example-usage">Example Usage</a></li>
                 <li><a href="#roadmap">Roadmap</a></li>
             </ul>
     </li>
@@ -114,7 +115,7 @@ Currently the code is not available as a package and must be run from the downlo
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!--DEPENDENCIES-->
-## Code dependencies
+## Code Dependencies
 
 Required libraries include numpy, scipy, scikit.sklearn, and netCDF4. To install, run the following in the terminal
 
@@ -127,6 +128,23 @@ and
 ```
 pip install netCDF4
 ```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!--FILES INCLUDED-->
+## Files Included
+
+There are currently 5 files in the Code folder of this repository. Three are copied directly from [Jeremy Gibbs' pyBurgers repository](https://github.com/jeremygibbs/pyBurgers) to reduce the number of downloads. These files are indicated with a :hamburger: next to their name.
+
+**KM_utils.py** - Functions used for the KM model.
+
+**burgers.py**:hamburger: - Functions used for numerical solutions of the Burgers equation.
+
+**namelist.json**:hamburger: - Parameters for solving the Burgers equation.
+
+**burgers_DNS.py**:hamburger: - Solves Burgers equation using DNS.
+
+**burgers_LESKMfromDNS.py** - Solves Burgers equation using LES with the KM-based closure.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
