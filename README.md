@@ -18,6 +18,7 @@ This repository contains code to provide a data-driven closure for the subgrid s
         <ul>
           <li><a href="#stochastic-burgers-equation">Stochastic Burgers Equation</a></li>
           <li><a href="#kramers-moyal-expansion-method">Kramers-Moyal Expansion Method</a></li>
+          <li><a href="#km-implementation-for-sgs-closure">KM Implementation for SGS Closure</a></li>
       </ul>
     </li>
     <li>
@@ -35,7 +36,9 @@ This repository contains code to provide a data-driven closure for the subgrid s
 
 <!--ABOUT THE PROJECT-->
 # About the Project
-This repository is intended to provide a data-driven subgrid-scale closure method using the principles of statistical mechanics. The current SGS closure is implemented into 
+This repository is intended to provide a data-driven subgrid-scale closure method using the principles of statistical mechanics. The current SGS closure is implemented into an LES closure for the stochastically forced 1D momentum equation (Burgers equation). The following sections provide more information on the stochastic Burgers equation, Kramers-Moyal (KM) expansion method, and the implementation of the KM method for closure of the SGS term in LES of the Burgers equation.
+
+See the [the cited paper](https://www.researchgate.net/profile/Hitesh-Bindra/publication/376766325_Development_of_a_subgrid-scale_model_for_Burgers_turbulence_using_statistical_mechanics-based_methods/links/65999ab53c472d2e8eb968a9/Development-of-a-subgrid-scale-model-for-Burgers-turbulence-using-statistical-mechanics-based-methods.pdf) for a more thorough derivation of the math involved.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -46,19 +49,17 @@ This code is built off of [Jeremy Gibbs' pyBurgers repository](https://github.co
 
 The general form of the 1D momentum equation (Burgers equation) can be written as 
 
-$\frac{\partial u}{\partial t}+u\frac{\partial u}{\partial x} = \nu \frac{\partial^2 u}{\partial x^2}+f(x,t)$
+$$\frac{\partial u}{\partial t}+u\frac{\partial u}{\partial x} = \nu \frac{\partial^2 u}{\partial x^2}+f(x,t)$$
 
 In the case of the stochastic Burgers equation, the forcing function is defined as a noise term that is white in time and colored in space by
 
-$\langle\widehat{f}(k,t)\widehat{f}(k',t')\rangle = 2C_0|k|^{\beta}\delta (k+k')\delta (t-t')$
+$$\langle\widehat{f}(k,t)\widehat{f}(k',t')\rangle = 2C_0|k|^{\beta}\delta (k+k')\delta (t-t')$$
 
-The 
+The Burgers equation can be solved numerically using direct numerical simulation (DNS) with sufficient spatial elements. To reduce the number of spatial elements required, an additional subgrid-scale (SGS) term is added to account for the interactions below the grid scale. This is called large eddy simulation (LES). The equation for solving Burgers equation using LES is defined by
 
-The equation for solving Burgers equation using LES is defined by
+$$\frac{\partial \bar{u}}{\partial t}+\bar{u}\frac{\partial \bar{u}}{\partial x} = \nu \frac{\partial^2\bar{u}}{\partial x^2} + \bar{f}(x,t)-\frac{1}{2}\frac{\partial \tau}{\partial x}$$
 
-$\frac{\partial \bar{u}}{\partial t}+\bar{u}\frac{\partial \bar{u}}{\partial x} = \nu \frac{\partial^2\bar{u}}{\partial x^2} + \bar{f}(x,t)-\frac{1}{2}\frac{\partial \tau}{\partial x}$
-
-The objective of this code is to generate a model for $\tau$ in the subgrid-scale term.
+The objective of this code is to generate a model for $\tau$ in the SGS term.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -67,22 +68,34 @@ The objective of this code is to generate a model for $\tau$ in the subgrid-scal
 
 The Kramers-Moyal (KM) expansion method is a statistical mechanics-based method for describing the evolution of a pdf in time.
 
-The generic equation for some state variable, $x$, is given by
+KM coefficients are defined from the probabilistic moments by
 
-$\frac{dt}{dx}=D_1(x,t)+\sqrt{D_2(x,t)}dW$
+$$D_n(y) = \lim_{\Delta t\to 0}\frac{1}{n!\Delta t}\int_{-\infty}^{\infty}(y(t+\Delta t)-y)^nP(y(t+\Delta t),t+\Delta t|y(t),t)dy$$
+
+These KM coefficients can be implemented into a Fokker-Planck equation to describe the probability evolution over time
+
+$$\frac{\partial p}{\partial t} = \sum_{n=1}^{\infty} \frac{\partial^n}{\partial y^n}D_n(y,t)p(y,t)$$
+
+The corresponding equation for some state variable, $x$, is given by
+
+$$\frac{dt}{dx}=D_1(x,t)+\sqrt{D_2(x,t)}dW$$
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!--KM IMPLEMENTATION FOR SGS CLOSURE-->
+## KM Implementation for SGS Closure
 
 The value for the subgrid-scale (SGS) term, $\tau$, can be calculated from the resultant DNS solution.
 
-$\tau = \overline{uu} - \bar{u}\bar{u}$
+$$\tau = \overline{uu} - \bar{u}\bar{u}$$
 
-The values for $D_1$ and $D_2$ can be calculated from time series of $\tau$ calculated from DNS.
+The values for the KM coefficients, $D_1$ and $D_2$, can be calculated from time series of $\tau$ calculated from DNS using the method in the previous section.
 
 The value for $\tau$ can be found on the fly by solving the SDE numerically using the Euler-Marayuma method.
 
-$\tau_{n+1} = \tau_n + D_1(\tau_n)dt
-    + D_2(\tau_n)dW_n+\frac{1}{2}(D_2D_2')(\tau_n)(dW_n^2-dt)$
+$$\tau_{n+1} = \tau_n + D_1(\tau_n)dt
+    + D_2(\tau_n)dW_n+\frac{1}{2}(D_2D_2')(\tau_n)(dW_n^2-dt)$$
 
-See the [the cited paper](https://www.researchgate.net/profile/Hitesh-Bindra/publication/376766325_Development_of_a_subgrid-scale_model_for_Burgers_turbulence_using_statistical_mechanics-based_methods/links/65999ab53c472d2e8eb968a9/Development-of-a-subgrid-scale-model-for-Burgers-turbulence-using-statistical-mechanics-based-methods.pdf) for a more thorough derivation of the math involved.
 
 <div align="center">
     <img src="Figures/KMDiagramSGS2.png" width="800">
@@ -144,9 +157,9 @@ The development of this code is still a work in progress. This code has
 - [x] Implement KM closure for solving LES in 1D momentum equation (Burgers equation)
 - [ ] Publish distribution package
 - [ ] Phase out NetCDF4 requirement
-- [ ] Implement into 2D and 3D closures
+- [ ] Implement KM into other closures
 
-See the [open issues](https://github.com/mcr11996/KramersMoyalSGSClosure/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/mcr11996/KramersMoyalSGSClosure/issues) for a full list of proposed features and known issues.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
