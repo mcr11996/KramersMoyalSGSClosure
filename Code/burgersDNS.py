@@ -1,4 +1,6 @@
 #/usr/bin/env python
+# THIS FILE OBTAINED FROM JEREMY GIBBS' PYBURGERS PROJECT
+# https://github.com/jeremygibbs/pyBurgers
 import time
 from sys import stdout
 import numpy as np
