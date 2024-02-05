@@ -1,9 +1,4 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Commit][commit-shield]][commit-url]
-[![Stars][star-shield]][star-url]
-[![Issues][issues-shield]][issues-url]
-[![GNU GPL-3.0 License][license-shield]][license-url]
-[![Citation][citation-shield]][citation-url]
+[![Contributors][contributors-shield]][contributors-url] [![Commit][commit-shield]][commit-url][ ![Stars][star-shield]][star-url] [![Issues][issues-shield]][issues-url] [![GNU GPL-3.0 License][license-shield]][license-url] [![Citation][citation-shield]][citation-url]
 
 
 # Kramers-Moyal Subgrid-scale Closure
