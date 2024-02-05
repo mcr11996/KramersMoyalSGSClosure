@@ -1,5 +1,6 @@
 [![Contributors][contributors-shield]][contributors-url]
-[![Stargazers][stars-shield]][stars-url]
+[![Commit][commit-shield]][commit-url]
+[![Stars][star-shield]][star-url]
 [![Issues][issues-shield]][issues-url]
 [![GNU GPL-3.0 License][license-shield]][license-url]
 [![Citation][citation-shield]][citation-url]
@@ -227,8 +228,10 @@ Ross, Molly, and Hitesh Bindra. "Development of a subgrid-scale model for Burger
 [contributors-url]: https://github.com/mcr11996/KramersMoyalSGSClosure/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/mcr11996/KramersMoyalBurgulenceClosure?style=for-the-badge
 [forks-url]: https://github.com/mcr11996/KramersMoyalBurgulenceClosure/network/members
-[stars-shield]: https://img.shields.io/github/last-commit/mcr11996/KramersMoyalSGSClosure?style=for-the-badge
-[stars-url]: https://github.com/mcr11996/KramersMoyalBurgulenceClosure
+[star-shield]: https://img.shields.io/github/stars/mcr11996/KramersMoyalSGSClosure?style=for-the-badge
+[star-url]: https://github.com/mcr11996/KramersMoyalSGSClosure
+[commit-shield]: https://img.shields.io/github/last-commit/mcr11996/KramersMoyalSGSClosure?style=for-the-badge
+[commit-url]: https://github.com/mcr11996/KramersMoyalSGSClosure
 [issues-shield]: https://img.shields.io/github/issues/mcr11996/KramersMoyalSGSClosure?style=for-the-badge&color=red
 [issues-url]: https://github.com/mcr11996/KramersMoyalSGSClosure/issues
 [license-shield]: https://img.shields.io/badge/GPL-3?style=for-the-badge&label=LICENSE&color=green
