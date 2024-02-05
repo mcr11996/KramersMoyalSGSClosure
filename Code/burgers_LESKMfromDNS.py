@@ -2,7 +2,10 @@
 """
 Created on Mon May  8 20:39:39 2023
 
-@author: molly199
+@author: Molly Ross
+    This code is based off of the burgersLES code from Jeremy Gibbs' pyBurgers repository
+    https://github.com/jeremygibbs/pyBurgers
+    Additions have been made for a KM closure calculated from DNS
 """
 import time
 from sys import stdout
@@ -12,10 +15,10 @@ from burgers import Utils, Settings, BurgersLES
 from KM_utils import find_KM_fit_coeffs, KM
 
 utils = Utils()
+
 def findTau(u_ss, delta_f=1,len_x=2*np.pi):
     """
-    Find tau to put into Burgers Eq. Uncomment last two lines and add
-    der['dudx'] to the Returns to get dtaudx.
+    Find tau from DNS (u_ss) to put into Burgers Eq.
 
     Parameters
     ----------
@@ -32,14 +35,9 @@ def findTau(u_ss, delta_f=1,len_x=2*np.pi):
         Numpy array with length = len(u_ss)/delta_f.
 
     """
-    #utils = Utils()
     uf = utils.filterDown(u_ss,delta_f)
-    #uf = gaussian_filter(u_ts,delta_f,mode='reflect')
-    #uf = uf[::delta_f]
     u2 = u_ss*u_ss
     term1 = utils.filterDown(u2,delta_f)
-    #term1 = gaussian_filter(u2,delta_f,mode='reflect')
-    #term1 = term1[::delta_f]
     term2 = uf*uf
     tau = term1 - term2
     dx = len_x/(len(tau))
@@ -47,23 +45,13 @@ def findTau(u_ss, delta_f=1,len_x=2*np.pi):
     return tau, der['dudx']
 
 
-#KM_f = TS.TSeries(tau[:,80],dt,'smooth',1000)
-#KM_f.findCoefficients()
-#KM_data = KM_f.generateTimeSeries()
-
-#d1 = KM_f.drift
-#d2 = KM_f.diffusion
-
-#d1_coeffs = np.polyfit(d1[:,0],d1[:,1],1)
-#d2_coeffs = np.polyfit(d2[:,0],d2[:,1],2)
-
-# LES run loop
+# LES solver
 def main():
 
-    # let's time this thing
+    # Let's time this thing
     t1 = time.time()
 
-    # a nice welcome message
+    # A nice welcome message
     print("##############################################################")
     print("#                                                            #")
     print("#                   Welcome to pyBurgers                     #")
@@ -72,34 +60,32 @@ def main():
     print("##############################################################")
     print("[pyBurgers: Info] \t You are running in LES mode")
 
-    # instantiate helper classes
+    # Instantiate helper classes
     print("[pyBurgers: Setup] \t Reading input settings")
     utils    = Utils()
     settings = Settings('namelist.json')
     
-    # input settings
     nxDNS = settings.nxDNS
-    #nxLES = settings.nxLES
     nxLES = 512
     mp    = int(nxLES/2)
     dx    = 2*np.pi/nxLES
     dt    = settings.dt
-    #dt = 0.005
     nt    = settings.nt
-    #nt = 40000
-    #model = settings.sgs
     visc  = settings.visc
     damp  = settings.damp
+
+    # Define the filename for the DNS training data
+    dns_fname = 'pyBurgersDNS.nc'
     
-    dns_data =  nc.Dataset('pyBurgersDNS.nc','r')
-    #dns_data = nc.Dataset('pyBurgersDNS_MR_512les2.nc','r')
+    dns_data =  nc.Dataset(dns_fname,'r')
     
     u_dns = dns_data['u'][:]
     dns_data.close()
-    
+
+    # Define the time step for the DNS data training
     dt_DNS = 0.1
         
-     
+    # Calculate time series for tau from DNS to train KM model 
     for i in range(np.shape(u_dns)[0]):
         tau_i, dtaudx_i = findTau(u_dns[i,:],delta_f=int(nxDNS/nxLES))
         if 'tau_dns' in locals():
@@ -113,22 +99,22 @@ def main():
     bins, D1_e, D2_e = KM(tau_dns[:,80], lambda_1=False, dt=dt_DNS, num_bins=200)
     d1_coeffs, d2_coeffs = find_KM_fit_coeffs(bins,D1_e,D2_e)
     
-    # Initiate random KM
+    # Initiate random KM (This maintains the seed for the forcing function)
     eta = np.random.normal(0,1,[int(1000),int(nxLES)])
     
    
-    # initialize velocity field
+    # Initialize velocity field
     print("[pyBurgers: Setup] \t Initialzing velocity field")
     u = np.zeros(nxLES)
 
-    # initialize random number generator
+    # Initialize random number generator
     np.random.seed(1)
 
-    # place holder for right hand side
+    # Place holder for right hand side
     rhsp = 0
     
-    # create output file
-    # commented out some info to speed up calculations and minimize output
+    # Create output file
+    # Some info commented out to speed up calculations and minimize output
     # file size.
     print("[pyBurgers: Setup] \t Creating output file")
     output = nc.Dataset('pyBurgersLES_KMfromDNS_Seed3.nc','w')
@@ -137,11 +123,11 @@ def main():
     output.history = "Created " + time.ctime(time.time())
     #output.setncattr("sgs","%d"%model)
     
-    # add dimensions
+    # Add dimensions
     output.createDimension('t')
     output.createDimension('x',nxLES)
 
-    # add variables
+    # Add variables
     out_t = output.createVariable("t", "f4", ("t"))
     out_t.long_name = "time"
     out_t.units = "s"
@@ -173,10 +159,10 @@ def main():
     out_u.long_name = "velocity"
     out_u.units = "m s-1"
 
-    # write x data
+    # Write x data
     out_x[:] = np.arange(0,2*np.pi,dx)
  
-    # time loop
+    # Time loop
     save_t = 0
     #dtaudx = np.zeros(nxLES)
     # Initiate tau value
@@ -185,19 +171,19 @@ def main():
     dtaudx = tau_deriv['dudx']
     for t in range(int(nt)):
         
-        # update progress
+        # Update progress
         if (t==0 or (t+1)%1000==0):
             stdout.write("\r[pyBurgers: LES] \t Running for time %07d of %d"%(t+1,int(nt)))
             stdout.flush()
         
-        # compute derivatives
+        # Compute derivatives
         derivs = utils.derivative(u,dx)
         dudx   = derivs['dudx']
         du2dx  = derivs['du2dx']
         d2udx2 = derivs['d2udx2']
         #d3udx3 = derivs['d3udx3']
 
-        # add fractional Brownian motion (FBM) noise
+        # Add fractional Brownian motion (FBM) noise
         fbm  = utils.noise(0.75,nxDNS)
         #fbmf = utils.noise(0.75,nxLES)
         fbmf = utils.filterDown(fbm,int(nxDNS/nxLES))
@@ -211,10 +197,10 @@ def main():
         tau_deriv = utils.derivative(tau,dx)
         dtaudx = tau_deriv['dudx']
 
-        # compute right hand side
+        # Compute right hand side
         rhs = visc * d2udx2 - 0.5*du2dx + np.sqrt(2*damp/dt)*fbmf - 0.5*dtaudx
         
-        # time integration
+        # Time integration
         if t == 0:
             # Euler for first time step
             u_new = u + dt*rhs
@@ -222,32 +208,32 @@ def main():
             # 2nd-order Adams-Bashforth
             u_new = u + dt*(1.5*rhs - 0.5*rhsp)
         
-        # set Nyquist to zero
+        # Set Nyquist to zero
         fu_new     = np.fft.fft(u_new)
         fu_new[mp] = 0
         u_new      = np.real(np.fft.ifft(fu_new))
         u          = u_new
         rhsp       = rhs
 
-        # output to file every 1000 time steps (0.1 seconds)
+        # Output to file every 1000 time steps (0.1 seconds)
         if ((t+1)%1000==0):
             
             # Fix the tau value to the DNS data every available time step
             tau = tau_dns[save_t,:]
             
-            # kinetic energy
+            # Kinetic energy
             tke  = 0.5*np.var(u)
 
-            # dissipation
+            # Dissipation
             #diss_sgs = np.mean(-tau*dudx)
             #diss_mol = np.mean(visc*dudx**2)
 
-            # enstrophy
+            # Enstrophy
             #ens_prod = np.mean(dudx**3)
             #ens_dsgs = np.mean(-tau*d3udx3)
             #ens_dmol = np.mean(visc*d2udx2**2)
             
-            # save to disk
+            # Save to disk
             out_t[save_t]   = (t+1)*dt 
             out_k[save_t]   = tke
             #out_c[save_t]   = coeff
@@ -260,7 +246,7 @@ def main():
             save_t += 1
             #u = u_dns[save_t,::int(nxDNS/nxLES)]
     
-    # time info
+    # Time info
     t2 = time.time()
     tt = t2 - t1
     print("\n[pyBurgers: LES] \t Done! Completed in %0.2f seconds"%tt)
