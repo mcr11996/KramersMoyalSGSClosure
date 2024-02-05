@@ -1,3 +1,8 @@
+# THIS FILE OBTAINED FROM JEREMY GIBBS' PYBURGERS REPOSITORY
+# https://github.com/jeremygibbs/pyburgers
+
+# Functions for numerical solution of Burgers equation using DNS and LES
+
 import json
 import numpy as np
 import cmath as cm
