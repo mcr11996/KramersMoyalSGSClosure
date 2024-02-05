@@ -27,6 +27,7 @@ This repository contains code to provide a data-driven closure for the subgrid s
             <ul>
                 <li><a href="#code-dependencies">Code Dependencies</a></li>
                 <li><a href="#files-included">Files Included</a></li>
+                <li><a href="#important-variables">Important Variables</a></li>
                 <li><a href="#example-usage">Example Usage</a></li>
                 <li><a href="#roadmap">Roadmap</a></li>
             </ul>
@@ -78,9 +79,17 @@ These KM coefficients can be implemented into a Fokker-Planck equation to descri
 
 $$\frac{\partial p}{\partial t} = \sum_{n=1}^{\infty} \frac{\partial^n}{\partial y^n}D_n(y,t)p(y,t)$$
 
-The corresponding equation for some state variable, $x$, is given by
+The corresponding equation for some state variable, $y$, is given by
 
-$$\frac{dt}{dx}=D_1(x,t)+\sqrt{D_2(x,t)}dW$$
+$$\frac{dt}{dy}=D_1(y,t)+\sqrt{D_2(y,t)}dW$$
+
+where $dW$ is a normally distributed random variable with mean equal to 0 and a standard deviation of 1.
+
+To calculate the KM coefficients from a discrete time series, the data is binned and the conditional probability (cPDF) of the time series going from one bin to another is estimated after some time step $\Delta t$. To find the value of $D_1$ or $D_2$ as $\Delta t \to 0$, the values of $D_1$ or $D_2$ are calculated for varying values of $\Delta t$. The extrapolation function is fit to a $\Delta t$ range between one and two times the Markov scale with a resolution equal to that of the time resolution of the data.
+
+<div align="center">
+    <img src="Figures/KMDiagram2.png" width="600">
+</div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -97,6 +106,8 @@ The value for $\tau$ can be found on the fly by solving the SDE numerically usin
 
 $$\tau_{n+1} = \tau_n + D_1(\tau_n)dt
     + D_2(\tau_n)dW_n+\frac{1}{2}(D_2D_2')(\tau_n)(dW_n^2-dt)$$
+
+If the value of $\tau$ is available from the training data, that $\tau$ is used to calibrate the SGS term. If $\tau$ is not available, then it is calculated off of previous values of $\tau$ using the equation above.
 
 
 <div align="center">
@@ -149,6 +160,27 @@ There are currently 5 files in the Code folder of this repository. Three are cop
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!--IMPORTANT VARIABLES-->
+## Important Variables
+
+**nx** - Number of spatial grid elements for DNS solution
+
+**dt** - Time step of simulation
+
+**nt** - Number of time steps to solve in the simulation
+
+**visc** - Viscosity ($\nu$)
+
+**damp** - Damping coefficient ($D_0$)
+
+**nxLES** - Number of spatial grid elements for LES solution
+
+**dns_fname** - File name for the DNS training data (Currently pyBurgersDNS.nc)
+
+**dt_DNS** - Time step for outputted DNS velocity
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 <!--EXAMPLE USAGE-->
 ## Example Usage
 
@@ -158,11 +190,15 @@ Run the DNS script to obtain the training data.
 python burgersDNS.py
 ```
 
+This will generate a netCDF file. The current file name is **pyBurgersDNS.nc**, but this can be changed in line 51 of burgersDNS.py before running.
+
 Run the LES script to train from the data provided in the DNS data and then implement that as a closure for LES.
 
 ```
 python burgers_LESfromDNS.py
 ```
+
+The LES will output another netCDF file. The current file name is **pyBurgersLES_KMfromDNS.nc**. This can be changed in line 120 of burgers_LESfromDNS.py before running.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
