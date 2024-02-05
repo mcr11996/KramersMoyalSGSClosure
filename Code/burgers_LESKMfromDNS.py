@@ -117,7 +117,7 @@ def main():
     # Some info commented out to speed up calculations and minimize output
     # file size.
     print("[pyBurgers: Setup] \t Creating output file")
-    output = nc.Dataset('pyBurgersLES_KMfromDNS_Seed3.nc','w')
+    output = nc.Dataset('pyBurgersLES_KMfromDNS.nc','w')
     output.description = "pyBurgers KM LES output"
     output.source = "M. Ross"
     output.history = "Created " + time.ctime(time.time())
